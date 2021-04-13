@@ -5,6 +5,14 @@ Class {
 }
 
 { #category : #tests }
+CuentaCorrienteTest >> testAgregarSaldoACuentaCorriente [
+| unaCuentaCorriente |
+unaCuentaCorriente:= CuentaCorriente new.
+unaCuentaCorriente agregarSaldo:  10.
+self assert: unaCuentaCorriente obtenerSaldo  equals: 10.
+]
+
+{ #category : #tests }
 CuentaCorrienteTest >> testCreacionCuentaCorrienteSinSaldo [
 	| cuentaCorriente |
 	cuentaCorriente:= CuentaCorriente new. 
