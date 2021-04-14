@@ -2,10 +2,17 @@ Class {
 	#name : #Cuenta,
 	#superclass : #Object,
 	#instVars : [
-		'saldo'
+		'saldo',
+		'cliente'
 	],
 	#category : #'Ejercicio1-model'
 }
+
+{ #category : #'instance creation' }
+Cuenta class >> paraElCliente: unCliente [
+
+	^ self new initializeParaElCliente: unCliente
+]
 
 { #category : #'as yet unclassified' }
 Cuenta >> agregarSaldo: unaCantidad [ 
@@ -23,9 +30,11 @@ Cuenta >> enviarDinero: unaCantidad aCuenta: aCajaDeAhorro [
 	aCajaDeAhorro agregarSaldo: unaCantidad.
 ]
 
-{ #category : #'as yet unclassified' }
-Cuenta >> initialize [ 
-saldo := 0.
+{ #category : #initialization }
+Cuenta >> initializeParaElCliente: unCliente [
+
+	saldo := 0.
+	cliente := unCliente.
 ]
 
 { #category : #'as yet unclassified' }
