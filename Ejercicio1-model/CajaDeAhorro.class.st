@@ -10,3 +10,9 @@ CajaDeAhorro >> descontarSaldo: unaCantidad [
 		ifTrue: [ Exception signal: 'No hay saldo suficiente' ]
 		ifFalse: [ saldo:= saldo - unaCantidad  ]
 ]
+
+{ #category : #'as yet unclassified' }
+CajaDeAhorro >> obtenerMoneda [ 
+	
+	^ 'Pesos'
+]

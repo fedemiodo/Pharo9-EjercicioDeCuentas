@@ -8,3 +8,9 @@ Class {
 CuentaCorriente >> descontarSaldo: unaCantidad [	 
 	saldo := saldo - unaCantidad.
 ]
+
+{ #category : #'as yet unclassified' }
+CuentaCorriente >> obtenerMoneda [ 
+
+	^ 'Dolares'
+]

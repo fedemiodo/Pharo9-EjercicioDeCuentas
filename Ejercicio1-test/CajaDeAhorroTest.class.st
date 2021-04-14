@@ -78,3 +78,12 @@ CajaDeAhorroTest >> test06_EnviarDineroAOtraCajaYVerificarSaldos [
 	self assert: cajaDeAhorroDeJuan obtenerSaldo  equals: 25.
 	self assert: cajaDeAhorroDePepe obtenerSaldo  equals: 25.
 ]
+
+{ #category : #tests }
+CajaDeAhorroTest >> test07_CrearClienteNuloDebeDevolverUnaExcepcion [
+
+	|cajaDeAhorro|
+
+	self should: [ cajaDeAhorro := CajaDeAhorro paraElCliente: ''. ] raise: Exception  withExceptionDo: [ :error |  ].
+	
+]
