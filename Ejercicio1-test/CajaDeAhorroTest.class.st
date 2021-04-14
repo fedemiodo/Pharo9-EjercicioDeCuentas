@@ -1,53 +1,89 @@
 Class {
 	#name : #CajaDeAhorroTest,
 	#superclass : #TestCase,
-	#instVars : [
-		'cajaDeAhorro'
-	],
 	#category : #'Ejercicio1-test'
 }
 
 { #category : #tests }
-CajaDeAhorroTest >> testAgregarSaldoAInstancia [
-| cajaDeAhorro |
-cajaDeAhorro := CajaDeAhorro new.
-cajaDeAhorro agregarSaldo: 5.
+CajaDeAhorroTest >> test01_AgregarClienteAlCrearCuenta [
+
+	|cajaDeAhorro|
+	
+	cajaDeAhorro := CajaDeAhorro paraElCliente: 'Pepe'.
+	cajaDeAhorro agregarSaldo: 5.
+	self assert: cajaDeAhorro obtenerSaldo equals: 5.
+]
+
+{ #category : #tests }
+CajaDeAhorroTest >> test02_AgregarSaldoAInstancia [
+
+	| cajaDeAhorro |
+	
+	cajaDeAhorro := CajaDeAhorro paraElCliente: 'Juan'.
+	cajaDeAhorro agregarSaldo: 5.
+
 self assert: cajaDeAhorro obtenerSaldo equals: 5.
 ]
 
 { #category : #tests }
-CajaDeAhorroTest >> testAgregarYDescontarSaldoMuchasVeces [
-cajaDeAhorro := CajaDeAhorro new.
-self assert: cajaDeAhorro obtenerSaldo  equals: 0.
-cajaDeAhorro agregarSaldo: 24.
-self assert: cajaDeAhorro obtenerSaldo  equals: 24.
-cajaDeAhorro descontarSaldo: 17.
-self assert: cajaDeAhorro obtenerSaldo  equals: 24 - 17.
+CajaDeAhorroTest >> test03_AgregarYDescontarSaldoMuchasVeces [
+
+	|cajaDeAhorro|
+
+	cajaDeAhorro := CajaDeAhorro paraElCliente: 'Juan'.
+	self assert: cajaDeAhorro obtenerSaldo  equals: 0.
+	
+	cajaDeAhorro agregarSaldo: 24.
+	self assert: cajaDeAhorro obtenerSaldo  equals: 24.
+	
+	cajaDeAhorro descontarSaldo: 17.
+	self assert: cajaDeAhorro obtenerSaldo  equals: 24 - 17.
 ]
 
 { #category : #tests }
-CajaDeAhorroTest >> testCreacionInstanciaSinSaldo [ 
-| cajaDeAhorro | 
-cajaDeAhorro := CajaDeAhorro new.
-self assert: cajaDeAhorro obtenerSaldo equals: 0.
+CajaDeAhorroTest >> test04_CreacionInstanciaSinSaldo [
+ 
+	| cajaDeAhorro | 
+
+	cajaDeAhorro := CajaDeAhorro paraElCliente: 'Juan'.
+
+	self assert: cajaDeAhorro obtenerSaldo equals: 0.
 ]
 
 { #category : #tests }
-CajaDeAhorroTest >> testDescontarSaldoACajaDeAhorro [
-cajaDeAhorro := CajaDeAhorro new.
+CajaDeAhorroTest >> test05_DescontarSaldoACajaDeAhorro [
 
-self assert: cajaDeAhorro obtenerSaldo  equals: 0.
-self should: [ cajaDeAhorro descontarSaldo: 10. ] raise: Exception  withExceptionDo: [ :error |  ].
-self assert: cajaDeAhorro obtenerSaldo  equals: 0.
+	|cajaDeAhorro|
+
+	cajaDeAhorro := CajaDeAhorro paraElCliente: 'Juan'.
+
+	self assert: cajaDeAhorro obtenerSaldo  equals: 0.
+	self should: [ cajaDeAhorro descontarSaldo: 10. ] raise: Exception  withExceptionDo: [ :error |  ].
+	self assert: cajaDeAhorro obtenerSaldo  equals: 0.
 ]
 
 { #category : #tests }
-CajaDeAhorroTest >> testEnviarDineroAOtraCajaYVerificarSaldos [
-| cajaDeAhorro1 cajaDeAhorro2 |
-cajaDeAhorro1 := CajaDeAhorro new.
-cajaDeAhorro1 agregarSaldo: 50.
-cajaDeAhorro2 := CajaDeAhorro new.
-cajaDeAhorro1 enviarDinero: 25 aCuenta: cajaDeAhorro2.
-self assert: cajaDeAhorro1 obtenerSaldo  equals: 25.
-self assert: cajaDeAhorro2 obtenerSaldo  equals: 25.
+CajaDeAhorroTest >> test06_EnviarDineroAOtraCajaYVerificarSaldos [
+
+	| cajaDeAhorroDeJuan cajaDeAhorroDePepe |
+	
+	cajaDeAhorroDeJuan := CajaDeAhorro paraElCliente: 'Juan'.
+	cajaDeAhorroDeJuan agregarSaldo: 50.
+	
+	cajaDeAhorroDePepe := CajaDeAhorro paraElCliente: 'Pepe'.
+	self assert: cajaDeAhorroDePepe obtenerSaldo  equals: 0.
+	 
+	cajaDeAhorroDeJuan enviarDinero: 25 aCuenta: cajaDeAhorroDePepe.
+	
+	self assert: cajaDeAhorroDeJuan obtenerSaldo  equals: 25.
+	self assert: cajaDeAhorroDePepe obtenerSaldo  equals: 25.
+]
+
+{ #category : #tests }
+CajaDeAhorroTest >> test07_CrearClienteNuloDebeDevolverUnaExcepcion [
+
+	|cajaDeAhorro|
+
+	self should: [ cajaDeAhorro := CajaDeAhorro paraElCliente: ''. ] raise: Exception  withExceptionDo: [ :error |  ].
+	
 ]
