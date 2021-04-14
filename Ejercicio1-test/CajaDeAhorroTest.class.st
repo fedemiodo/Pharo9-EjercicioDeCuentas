@@ -12,6 +12,7 @@ CajaDeAhorroTest >> test01_AgregarClienteAlCrearCuenta [
 	cajaDeAhorro := CajaDeAhorro paraElCliente: 'Pepe'.
 	cajaDeAhorro agregarSaldo: 5.
 	self assert: cajaDeAhorro obtenerSaldo equals: 5.
+	self assert: cajaDeAhorro obtenerCliente equals: 'Pepe'.
 ]
 
 { #category : #tests }
@@ -85,5 +86,15 @@ CajaDeAhorroTest >> test07_CrearClienteNuloDebeDevolverUnaExcepcion [
 	|cajaDeAhorro|
 
 	self should: [ cajaDeAhorro := CajaDeAhorro paraElCliente: ''. ] raise: Exception  withExceptionDo: [ :error |  ].
+	
+]
+
+{ #category : #tests }
+CajaDeAhorroTest >> test08_VerificarMonedaDeCajaDeAhorro [
+
+	|cajaDeAhorro|
+
+	cajaDeAhorro := CajaDeAhorro paraElCliente: 'Juan'.
+	self assert: cajaDeAhorro obtenerMoneda  equals: 'Pesos'
 	
 ]
