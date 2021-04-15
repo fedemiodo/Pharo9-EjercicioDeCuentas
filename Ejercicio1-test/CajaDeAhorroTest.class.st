@@ -98,3 +98,22 @@ CajaDeAhorroTest >> test08_VerificarMonedaDeCajaDeAhorro [
 	self assert: cajaDeAhorro obtenerMoneda  equals: 'Pesos'
 	
 ]
+
+{ #category : #tests }
+CajaDeAhorroTest >> test09_VerificarQueDosCuentasSeanLaMisma [
+
+	|cajaDeAhorro cajaDeAhorro2 |
+
+	cajaDeAhorro := CajaDeAhorro paraElCliente: 'A'.
+	cajaDeAhorro2 := CajaDeAhorro paraElCliente: 'A'.
+	
+	self assert: cajaDeAhorro equals: cajaDeAhorro2.
+]
+
+{ #category : #tests }
+CajaDeAhorroTest >> test10_ComprobarIgualdadObservacional [
+
+	| cajaDeAhorro |
+	cajaDeAhorro := CajaDeAhorro paraElCliente: 'A'.
+	self assert: cajaDeAhorro asString  equals: ('Caja de ahorro a nombre de <1s> con moneda en <2s> y saldo <3p>' expandMacrosWith: cajaDeAhorro obtenerCliente with: cajaDeAhorro obtenerMoneda with: cajaDeAhorro obtenerSaldo).
+]

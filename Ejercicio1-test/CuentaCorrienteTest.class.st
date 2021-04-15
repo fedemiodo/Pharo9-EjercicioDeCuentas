@@ -48,19 +48,10 @@ CuentaCorrienteTest >> test04_VerificarMonedaCuentaCorriente [
 ]
 
 { #category : #tests }
-CuentaCorrienteTest >> test05_EnviarDineroACuentaConDiferenteMoneda [
+CuentaCorrienteTest >> test05_VerificarIgualdadObservacional [
 
-| cuentaCorriente cajaDeAhorro  |
-
-cuentaCorriente := CuentaCorriente paraElCliente: 'A'.
-cajaDeAhorro := CajaDeAhorro paraElCliente: 'B'.
-
-self assert: cuentaCorriente obtenerMoneda  equals: 'Dolares'.
-self assert: cajaDeAhorro  obtenerMoneda  equals: 'Pesos'.
-
-cuentaCorriente agregarSaldo: 50.
-
-self should: [ cuentaCorriente enviarDinero: 25 aCuenta: cajaDeAhorro. ] raise: Exception  withExceptionDo: [ :error | ]. 
-self assert: cuentaCorriente obtenerSaldo  equals: 50.
-self assert: cajaDeAhorro obtenerSaldo  equals: 0.
+	| unaCuentaCorriente |
+	unaCuentaCorriente := CuentaCorriente paraElCliente: 'A'.
+	
+	self assert: unaCuentaCorriente asString  equals: ('Cuenta corriente a nombre de <1s> con moneda en <2s> y saldo <3p>' expandMacrosWith: unaCuentaCorriente obtenerCliente with: unaCuentaCorriente obtenerMoneda with: unaCuentaCorriente obtenerSaldo).
 ]

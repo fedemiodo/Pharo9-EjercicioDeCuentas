@@ -25,6 +25,12 @@ Cuenta class >> validarCliente: unCliente [
 ]
 
 { #category : #'as yet unclassified' }
+Cuenta >> = otraCuenta [
+
+^ (self obtenerCliente = otraCuenta obtenerCliente) and: [ self obtenerMoneda = otraCuenta obtenerMoneda and: [ self obtenerSaldo = otraCuenta obtenerSaldo  ] ]
+]
+
+{ #category : #'as yet unclassified' }
 Cuenta >> agregarSaldo: unaCantidad [ 
 	saldo := saldo + unaCantidad.
 ]
@@ -70,5 +76,5 @@ Cuenta >> obtenerSaldo [
 { #category : #'as yet unclassified' }
 Cuenta >> tieneMismaMonedaQue: otraCuenta [
 
-^self obtenerMoneda == otraCuenta obtenerMoneda.
+^self obtenerMoneda = otraCuenta obtenerMoneda.
 ]

@@ -63,3 +63,44 @@ CuentaTest >> test02_ObtenerTodasLasMonedas [
 	
 
 ]
+
+{ #category : #tests }
+CuentaTest >> test05_EnviarDineroACuentaConDiferenteMoneda [
+
+| cuentaCorriente cajaDeAhorro  |
+
+cuentaCorriente := CuentaCorriente paraElCliente: 'A'.
+cajaDeAhorro := CajaDeAhorro paraElCliente: 'B'.
+
+self assert: cuentaCorriente obtenerMoneda  equals: 'Dolares'.
+self assert: cajaDeAhorro  obtenerMoneda  equals: 'Pesos'.
+
+cuentaCorriente agregarSaldo: 50.
+
+self should: [ cuentaCorriente enviarDinero: 25 aCuenta: cajaDeAhorro. ] raise: Exception  withExceptionDo: [ :error | ]. 
+self assert: cuentaCorriente obtenerSaldo  equals: 50.
+self assert: cajaDeAhorro obtenerSaldo  equals: 0.
+]
+
+{ #category : #tests }
+CuentaTest >> test11_DepositarDineroATodasLasCuentasYVerificar [
+
+	| unaColeccionDeCuentas unaCuentaDeAhorro unaCuentaDeAhorro2 unaCuentaCorriente unaCuentaCorriente2 |
+	unaCuentaDeAhorro := CajaDeAhorro paraElCliente: 'Juan'.
+	unaCuentaDeAhorro2 := CajaDeAhorro paraElCliente: 'Marcelo'.
+
+	unaCuentaCorriente := CuentaCorriente paraElCliente: 'Maria'.
+	unaCuentaCorriente2 := CuentaCorriente paraElCliente: 'Jose'.
+
+	unaColeccionDeCuentas := OrderedCollection new
+		                         add: unaCuentaDeAhorro;
+		                         add: unaCuentaDeAhorro2;
+		                         add: unaCuentaCorriente;
+		                         add: unaCuentaCorriente2;
+		                         yourself.
+
+
+	unaColeccionDeCuentas do: [ :unaCuenta | unaCuenta agregarSaldo: 500 ].
+
+	unaColeccionDeCuentas do: [ :unaCuenta | self assert: unaCuenta obtenerSaldo  equals: 500 ].
+]
