@@ -13,7 +13,7 @@ CuentaCorriente >> descontarSaldo: unaCantidad [
 { #category : #'as yet unclassified' }
 CuentaCorriente >> obtenerMoneda [ 
 
-	^ 'Dolares'
+	^ moneda
 ]
 
 { #category : #'as yet unclassified' }

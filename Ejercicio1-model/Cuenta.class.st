@@ -4,17 +4,21 @@ Class {
 	#instVars : [
 		'saldo',
 		'cliente',
-		'numeroDeCuenta'
+		'numeroDeCuenta',
+		'moneda'
 	],
 	#category : #'Ejercicio1-model'
 }
 
 { #category : #'instance creation' }
-Cuenta class >> paraElCliente: unCliente conElNumeroDeCuenta: unNumeroDeCuenta [
+Cuenta class >> paraElCliente: unCliente conElNumeroDeCuenta: unNumeroDeCuenta conMoneda: unaMoneda [
 
 	self validarCliente: unCliente.
-	 
-	^ self new initializeParaElCliente: unCliente conElNumeroDeCuenta: unNumeroDeCuenta 
+
+	^ self new
+		  initializeParaElCliente: unCliente
+		  conElNumeroDeCuenta: unNumeroDeCuenta
+		  conMoneda: unaMoneda
 ]
 
 { #category : #'as yet unclassified' }
@@ -53,10 +57,11 @@ Cuenta >> enviarDinero: unaCantidad aCuenta: aOtraCuenta [
 ]
 
 { #category : #initialization }
-Cuenta >> initializeParaElCliente: unCliente conElNumeroDeCuenta: unNumeroDeCuenta [
+Cuenta >> initializeParaElCliente: unCliente conElNumeroDeCuenta: unNumeroDeCuenta conMoneda: unaMoneda [
 
 	saldo := 0.
 	numeroDeCuenta:= unNumeroDeCuenta .
+	moneda := unaMoneda .
 	cliente := unCliente.
 ]
 

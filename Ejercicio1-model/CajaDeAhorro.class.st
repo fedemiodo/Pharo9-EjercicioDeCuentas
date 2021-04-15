@@ -15,7 +15,7 @@ CajaDeAhorro >> descontarSaldo: unaCantidad [
 { #category : #'as yet unclassified' }
 CajaDeAhorro >> obtenerMoneda [ 
 	
-	^ 'Pesos'
+	^ moneda
 ]
 
 { #category : #'as yet unclassified' }
