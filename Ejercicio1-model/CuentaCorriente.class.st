@@ -14,3 +14,16 @@ CuentaCorriente >> obtenerMoneda [
 
 	^ 'Dolares'
 ]
+
+{ #category : #'as yet unclassified' }
+CuentaCorriente >> printOn: aStream [	 
+	
+	aStream nextPutAll: 'Cuenta corriente a nombre de ';
+	nextPutAll: self obtenerCliente;
+	nextPutAll: ' con moneda en ';
+	nextPutAll: self obtenerMoneda;
+	nextPutAll: ' y saldo ';
+	print: self obtenerSaldo.
+	
+	
+]

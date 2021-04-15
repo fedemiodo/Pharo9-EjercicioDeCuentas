@@ -16,3 +16,10 @@ CajaDeAhorro >> obtenerMoneda [
 	
 	^ 'Pesos'
 ]
+
+{ #category : #'as yet unclassified' }
+CajaDeAhorro >> printOn: aStream [	 
+	
+	aStream nextPutAll: ('Caja de ahorro a nombre de <1s> con moneda en <2s> y saldo <3p>' expandMacrosWith: self obtenerCliente with: self obtenerMoneda with: self obtenerSaldo).
+	
+]

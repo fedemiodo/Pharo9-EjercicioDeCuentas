@@ -12,6 +12,7 @@ CajaDeAhorroTest >> test01_AgregarClienteAlCrearCuenta [
 	cajaDeAhorro := CajaDeAhorro paraElCliente: 'Pepe'.
 	cajaDeAhorro agregarSaldo: 5.
 	self assert: cajaDeAhorro obtenerSaldo equals: 5.
+	self assert: cajaDeAhorro obtenerCliente equals: 'Pepe'.
 ]
 
 { #category : #tests }
@@ -86,4 +87,33 @@ CajaDeAhorroTest >> test07_CrearClienteNuloDebeDevolverUnaExcepcion [
 
 	self should: [ cajaDeAhorro := CajaDeAhorro paraElCliente: ''. ] raise: Exception  withExceptionDo: [ :error |  ].
 	
+]
+
+{ #category : #tests }
+CajaDeAhorroTest >> test08_VerificarMonedaDeCajaDeAhorro [
+
+	|cajaDeAhorro|
+
+	cajaDeAhorro := CajaDeAhorro paraElCliente: 'Juan'.
+	self assert: cajaDeAhorro obtenerMoneda  equals: 'Pesos'
+	
+]
+
+{ #category : #tests }
+CajaDeAhorroTest >> test09_VerificarQueDosCuentasSeanLaMisma [
+
+	|cajaDeAhorro cajaDeAhorro2 |
+
+	cajaDeAhorro := CajaDeAhorro paraElCliente: 'A'.
+	cajaDeAhorro2 := CajaDeAhorro paraElCliente: 'A'.
+	
+	self assert: cajaDeAhorro equals: cajaDeAhorro2.
+]
+
+{ #category : #tests }
+CajaDeAhorroTest >> test10_ComprobarIgualdadObservacional [
+
+	| cajaDeAhorro |
+	cajaDeAhorro := CajaDeAhorro paraElCliente: 'A'.
+	self assert: cajaDeAhorro asString  equals: ('Caja de ahorro a nombre de <1s> con moneda en <2s> y saldo <3p>' expandMacrosWith: cajaDeAhorro obtenerCliente with: cajaDeAhorro obtenerMoneda with: cajaDeAhorro obtenerSaldo).
 ]

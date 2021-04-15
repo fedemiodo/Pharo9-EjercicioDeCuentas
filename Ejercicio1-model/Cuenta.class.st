@@ -25,6 +25,12 @@ Cuenta class >> validarCliente: unCliente [
 ]
 
 { #category : #'as yet unclassified' }
+Cuenta >> = otraCuenta [
+
+^ (self obtenerCliente = otraCuenta obtenerCliente) and: [ self obtenerMoneda = otraCuenta obtenerMoneda and: [ self obtenerSaldo = otraCuenta obtenerSaldo  ] ]
+]
+
+{ #category : #'as yet unclassified' }
 Cuenta >> agregarSaldo: unaCantidad [ 
 	saldo := saldo + unaCantidad.
 ]
@@ -35,9 +41,12 @@ Cuenta >> descontarSaldo: unaCantidad [
 ]
 
 { #category : #'as yet unclassified' }
-Cuenta >> enviarDinero: unaCantidad aCuenta: aCajaDeAhorro [ 
-	self descontarSaldo: unaCantidad.
-	aCajaDeAhorro agregarSaldo: unaCantidad.
+Cuenta >> enviarDinero: unaCantidad aCuenta: aOtraCuenta [
+
+	(self tieneMismaMonedaQue: aOtraCuenta)
+		 ifTrue: [self descontarSaldo: unaCantidad. aOtraCuenta agregarSaldo: unaCantidad.]
+		 ifFalse: [ Exception signal: 'Conflicto de monedas. Emisor y receptor no comparten tipo de moneda.' ].
+
 ]
 
 { #category : #initialization }
@@ -62,4 +71,10 @@ Cuenta >> obtenerMoneda [
 { #category : #'as yet unclassified' }
 Cuenta >> obtenerSaldo [
 	^ saldo
+]
+
+{ #category : #'as yet unclassified' }
+Cuenta >> tieneMismaMonedaQue: otraCuenta [
+
+^self obtenerMoneda = otraCuenta obtenerMoneda.
 ]
