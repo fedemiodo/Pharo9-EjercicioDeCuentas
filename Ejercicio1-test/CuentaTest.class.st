@@ -9,11 +9,11 @@ CuentaTest >> test01_ObtenerTodosLosClientesDeUnaColeccionDeCuentas [
 
 	|unaColeccionDeCuentas unaCuentaDeAhorro unaCuentaDeAhorro2 unaCuentaCorriente unaCuentaCorriente2|
 	
-	unaCuentaDeAhorro := CajaDeAhorro paraElCliente: 'Juan'.
-	unaCuentaDeAhorro2 := CajaDeAhorro paraElCliente: 'Marcelo'.
+	unaCuentaDeAhorro := CajaDeAhorro paraElCliente: 'Juan' conElNumeroDeCuenta: 1 .
+	unaCuentaDeAhorro2 := CajaDeAhorro paraElCliente: 'Marcelo' conElNumeroDeCuenta: 2 .
 	
-	unaCuentaCorriente  := CuentaCorriente  paraElCliente: 'Maria'.	
-	unaCuentaCorriente2  := CuentaCorriente  paraElCliente: 'Jose'.	
+	unaCuentaCorriente  := CuentaCorriente  paraElCliente: 'Maria' conElNumeroDeCuenta: 1 .	
+	unaCuentaCorriente2  := CuentaCorriente  paraElCliente: 'Jose' conElNumeroDeCuenta: 2 .	
 	
 	unaColeccionDeCuentas:= OrderedCollection new
 		add: unaCuentaDeAhorro ;
@@ -38,11 +38,11 @@ CuentaTest >> test02_ObtenerTodasLasMonedas [
 
 	|unaColeccionDeMonedas unaColeccionDeCuentas unaCuentaDeAhorro unaCuentaDeAhorro2 unaCuentaCorriente unaCuentaCorriente2|
 	
-	unaCuentaDeAhorro := CajaDeAhorro paraElCliente: 'Juan'.
-	unaCuentaDeAhorro2 := CajaDeAhorro paraElCliente: 'Marcelo'.
+	unaCuentaDeAhorro := CajaDeAhorro paraElCliente: 'Juan' conElNumeroDeCuenta: 1 .
+	unaCuentaDeAhorro2 := CajaDeAhorro paraElCliente: 'Marcelo' conElNumeroDeCuenta: 2 .
 	
-	unaCuentaCorriente  := CuentaCorriente  paraElCliente: 'Maria'.	
-	unaCuentaCorriente2  := CuentaCorriente  paraElCliente: 'Jose'.	
+	unaCuentaCorriente  := CuentaCorriente  paraElCliente: 'Maria' conElNumeroDeCuenta: 1 .	
+	unaCuentaCorriente2  := CuentaCorriente  paraElCliente: 'Jose' conElNumeroDeCuenta: 2 .	
 	
 	unaColeccionDeCuentas:= OrderedCollection  new
 		add: unaCuentaDeAhorro ;
@@ -69,8 +69,8 @@ CuentaTest >> test05_EnviarDineroACuentaConDiferenteMoneda [
 
 | cuentaCorriente cajaDeAhorro  |
 
-cuentaCorriente := CuentaCorriente paraElCliente: 'A'.
-cajaDeAhorro := CajaDeAhorro paraElCliente: 'B'.
+cuentaCorriente := CuentaCorriente paraElCliente: 'A' conElNumeroDeCuenta: 1 .
+cajaDeAhorro := CajaDeAhorro paraElCliente: 'B' conElNumeroDeCuenta: 2 .
 
 self assert: cuentaCorriente obtenerMoneda  equals: 'Dolares'.
 self assert: cajaDeAhorro  obtenerMoneda  equals: 'Pesos'.
@@ -83,14 +83,14 @@ self assert: cajaDeAhorro obtenerSaldo  equals: 0.
 ]
 
 { #category : #tests }
-CuentaTest >> test11_DepositarDineroATodasLasCuentasYVerificar [
+CuentaTest >> test06_DepositarDineroATodasLasCuentasYVerificar [
 
 	| unaColeccionDeCuentas unaCuentaDeAhorro unaCuentaDeAhorro2 unaCuentaCorriente unaCuentaCorriente2 |
-	unaCuentaDeAhorro := CajaDeAhorro paraElCliente: 'Juan'.
-	unaCuentaDeAhorro2 := CajaDeAhorro paraElCliente: 'Marcelo'.
+	unaCuentaDeAhorro := CajaDeAhorro paraElCliente: 'Juan' conElNumeroDeCuenta: 1 .
+	unaCuentaDeAhorro2 := CajaDeAhorro paraElCliente: 'Marcelo' conElNumeroDeCuenta: 2 .
 
-	unaCuentaCorriente := CuentaCorriente paraElCliente: 'Maria'.
-	unaCuentaCorriente2 := CuentaCorriente paraElCliente: 'Jose'.
+	unaCuentaCorriente := CuentaCorriente paraElCliente: 'Maria' conElNumeroDeCuenta: 1 .
+	unaCuentaCorriente2 := CuentaCorriente paraElCliente: 'Jose' conElNumeroDeCuenta: 2 .
 
 	unaColeccionDeCuentas := OrderedCollection new
 		                         add: unaCuentaDeAhorro;
@@ -103,4 +103,23 @@ CuentaTest >> test11_DepositarDineroATodasLasCuentasYVerificar [
 	unaColeccionDeCuentas do: [ :unaCuenta | unaCuenta agregarSaldo: 500 ].
 
 	unaColeccionDeCuentas do: [ :unaCuenta | self assert: unaCuenta obtenerSaldo  equals: 500 ].
+]
+
+{ #category : #tests }
+CuentaTest >> test07_OrdernarCuentasPorSuNumeroDeIdentificacion [
+
+	| unaColeccionDeCuentas unaCuentaDeAhorro unaCuentaDeAhorro2 unaCuentaDeAhorro3 |
+	unaCuentaDeAhorro := CajaDeAhorro paraElCliente: 'Juan' conElNumeroDeCuenta: 1 .
+	unaCuentaDeAhorro2 := CajaDeAhorro paraElCliente: 'Marcelo' conElNumeroDeCuenta: 7 .
+	unaCuentaDeAhorro3 := CajaDeAhorro paraElCliente: 'Julieta' conElNumeroDeCuenta: 3 .
+
+	unaColeccionDeCuentas := OrderedCollection  new
+			   add: unaCuentaDeAhorro;
+				add: unaCuentaDeAhorro3; 
+		      add: unaCuentaDeAhorro2;
+		      yourself.
+
+	unaColeccionDeCuentas asSortedCollection: [:unaCuenta :otraCuenta | unaCuenta obtenerNumeroDeCuenta  < otraCuenta obtenerNumeroDeCuenta].
+		
+	self assertCollection: (unaColeccionDeCuentas collect:[:unaCuenta | unaCuenta obtenerNumeroDeCuenta  ]) hasSameElements: #(1 3 7).
 ]
