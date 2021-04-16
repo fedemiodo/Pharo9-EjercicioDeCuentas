@@ -6,19 +6,22 @@ Class {
 
 { #category : #'as yet unclassified' }
 CuentaCorriente >> descontarSaldo: unaCantidad [	 
+	
 	saldo := saldo - unaCantidad.
 ]
 
 { #category : #'as yet unclassified' }
 CuentaCorriente >> obtenerMoneda [ 
 
-	^ 'Dolares'
+	^ moneda
 ]
 
 { #category : #'as yet unclassified' }
 CuentaCorriente >> printOn: aStream [	 
 	
-	aStream nextPutAll: 'Cuenta corriente a nombre de ';
+	aStream nextPutAll: 'Cuenta corriente numero '; 
+	print: self obtenerNumeroDeCuenta; 
+	nextPutAll: ' a nombre de ';
 	nextPutAll: self obtenerCliente;
 	nextPutAll: ' con moneda en ';
 	nextPutAll: self obtenerMoneda;
