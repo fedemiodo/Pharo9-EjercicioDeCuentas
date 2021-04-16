@@ -94,3 +94,9 @@ Cuenta >> tieneMismaMonedaQue: otraCuenta [
 
 	^ self obtenerMoneda = otraCuenta obtenerMoneda.
 ]
+
+{ #category : #'as yet unclassified' }
+Cuenta >> tieneSaldoNegativo [
+
+	^ self obtenerSaldo  negative.
+]

@@ -249,3 +249,74 @@ CuentaTest >> test09_Depositar100DolaresEnCuentasEnDolares [
 	unaColeccionDeCuentasEnDolares do: [ :unaCuenta | 	self assert: unaCuenta obtenerSaldo equals: 50 ].
 		
 ]
+
+{ #category : #tests }
+CuentaTest >> test10_ComprobarCuentasConSaldoNegativo [
+
+	| unaColeccionDeCuentas  unaCuentaCorriente unaCuentaCorriente2 unaCuentaCorriente3 unaColeccionDeCuentasConSaldoNegativo|
+	
+	unaCuentaCorriente := CuentaCorriente 
+		                     paraElCliente: 'Jose'
+		                     conElNumeroDeCuenta: 1
+		                     conMoneda: 'Pesos'.
+	unaCuentaCorriente2 := CuentaCorriente 
+		                      paraElCliente: 'Julieta'
+		                      conElNumeroDeCuenta: 2
+		                      conMoneda: 'Dolares'.	
+			
+	unaCuentaCorriente3 := CuentaCorriente 
+		                      paraElCliente: 'Mario'
+		                      conElNumeroDeCuenta: 3
+		                      conMoneda: 'Dolares'.	
+	
+	unaCuentaCorriente descontarSaldo: 50.
+	unaCuentaCorriente2 descontarSaldo: 100.
+	unaCuentaCorriente3 agregarSaldo: 100.
+
+	unaColeccionDeCuentas := OrderedCollection new
+		                                 add: unaCuentaCorriente;
+												  add: unaCuentaCorriente3;  
+												  add: unaCuentaCorriente2;                                  
+												 yourself.
+	
+	self 
+		assert: (unaColeccionDeCuentas anySatisfy:[:unaCuenta | unaCuenta tieneSaldoNegativo ]).
+		
+]
+
+{ #category : #tests }
+CuentaTest >> test11_SumaDeTodasLasCuentasEnDolares [
+
+	| unaColeccionDeCuentas  unaCuentaCorriente unaCuentaCorriente2 unaCuentaCorriente3  unaSumaDeSaldosDeCuentas |
+
+	unaCuentaCorriente := CuentaCorriente 
+		                     paraElCliente: 'Jose'
+		                     conElNumeroDeCuenta: 1
+		                     conMoneda: 'Dolares'.
+	unaCuentaCorriente2 := CuentaCorriente 
+		                      paraElCliente: 'Julieta'
+		                      conElNumeroDeCuenta: 2
+		                      conMoneda: 'Dolares'.	
+			
+	unaCuentaCorriente3 := CuentaCorriente 
+		                      paraElCliente: 'Mario'
+		                      conElNumeroDeCuenta: 3
+		                      conMoneda: 'Dolares'.	
+	
+	unaCuentaCorriente agregarSaldo: 50.
+	unaCuentaCorriente2 descontarSaldo: 100.
+	unaCuentaCorriente3 agregarSaldo: 20.
+
+	unaColeccionDeCuentas := OrderedCollection new
+		                                 add: unaCuentaCorriente;
+												  add: unaCuentaCorriente3;  
+												  add: unaCuentaCorriente2;                                  
+												 yourself.
+	unaSumaDeSaldosDeCuentas := unaColeccionDeCuentas inject: 0 into:[:sumaParcial :unaCuenta| sumaParcial + unaCuenta obtenerSaldo ]. 
+	unaSumaDeSaldosDeCuentas := (unaColeccionDeCuentas collect:[:unaCuenta | unaCuenta obtenerSaldo ])   sumNumbers.
+	unaSumaDeSaldosDeCuentas := unaColeccionDeCuentas sumNumbers:[:unaCuenta| unaCuenta obtenerSaldo ]. 
+	unaSumaDeSaldosDeCuentas := unaColeccionDeCuentas sumNumbers: #obtenerSaldo. 
+	
+	self 
+		assert: unaSumaDeSaldosDeCuentas equals: -30.	
+]
