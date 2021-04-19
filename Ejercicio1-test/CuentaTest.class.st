@@ -321,7 +321,7 @@ CuentaTest >> test11_SumaDeTodasLasCuentasEnDolares [
 		assert: unaSumaDeSaldosDeCuentas equals: -30.	
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #tests }
 CuentaTest >> test12_AgruparCuentasPorTipoDeMoneda [
 
 | unaCuentaDeAhorro unaCuentaDeAhorro2 unaCuentaCorriente unaCuentaCorriente2 unaColeccionDeCuentas unDiccionarioDeCuentas|
