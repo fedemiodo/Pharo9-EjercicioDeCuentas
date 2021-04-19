@@ -321,8 +321,8 @@ CuentaTest >> test11_SumaDeTodasLasCuentasEnDolares [
 		assert: unaSumaDeSaldosDeCuentas equals: -30.	
 ]
 
-{ #category : #tests }
-CuentaTest >> test_10AgruparCuentasPorTipoDeMoneda [
+{ #category : #'as yet unclassified' }
+CuentaTest >> test12_AgruparCuentasPorTipoDeMoneda [
 
 | unaCuentaDeAhorro unaCuentaDeAhorro2 unaCuentaCorriente unaCuentaCorriente2 unaColeccionDeCuentas unDiccionarioDeCuentas|
 	unaCuentaDeAhorro := CajaDeAhorro
@@ -338,6 +338,11 @@ CuentaTest >> test_10AgruparCuentasPorTipoDeMoneda [
 		                     paraElCliente: 'Jose'
 		                     conElNumeroDeCuenta: 1
 		                     conMoneda: 'Pesos'.
+		
+	unaCuentaCorriente2 := CuentaCorriente 
+		                     paraElCliente: 'Pepe'
+		                     conElNumeroDeCuenta: 2
+		                     conMoneda: 'Dolares'.
 							 
 	unaColeccionDeCuentas := Array with: unaCuentaDeAhorro with: unaCuentaDeAhorro2  with: unaCuentaCorriente  with: unaCuentaCorriente2 .
 	unDiccionarioDeCuentas := Dictionary new.
