@@ -26,7 +26,7 @@ Cuenta class >> validarCliente: unCliente [
 
 	unCliente isNotEmpty
 		ifTrue:[]
-		ifFalse:[Exception signal:'El cliente no puede ser un string vacio'] 
+		ifFalse: [InstanceCreationFailed signal:'El cliente no puede tener el nombre vacio.']
 ]
 
 { #category : #'as yet unclassified' }

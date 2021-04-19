@@ -320,3 +320,42 @@ CuentaTest >> test11_SumaDeTodasLasCuentasEnDolares [
 	self 
 		assert: unaSumaDeSaldosDeCuentas equals: -30.	
 ]
+
+{ #category : #tests }
+CuentaTest >> test_10AgruparCuentasPorTipoDeMoneda [
+
+| unaCuentaDeAhorro unaCuentaDeAhorro2 unaCuentaCorriente unaCuentaCorriente2 unaColeccionDeCuentas unDiccionarioDeCuentas|
+	unaCuentaDeAhorro := CajaDeAhorro
+		                     paraElCliente: 'Juan'
+		                     conElNumeroDeCuenta: 1
+		                     conMoneda: 'Pesos'.
+	unaCuentaDeAhorro2 := CajaDeAhorro
+		                      paraElCliente: 'Marcelo'
+		                      conElNumeroDeCuenta: 2
+		                      conMoneda: 'Dolares'.
+		
+	unaCuentaCorriente := CuentaCorriente 
+		                     paraElCliente: 'Jose'
+		                     conElNumeroDeCuenta: 1
+		                     conMoneda: 'Pesos'.
+							 
+	unaColeccionDeCuentas := Array with: unaCuentaDeAhorro with: unaCuentaDeAhorro2  with: unaCuentaCorriente  with: unaCuentaCorriente2 .
+	unDiccionarioDeCuentas := Dictionary new.
+	unaColeccionDeCuentas do: [:unaCuenta | unDiccionarioDeCuentas at: unaCuenta obtenerMoneda 
+		ifPresent: [:valor | valor add: unaCuenta]
+		ifAbsentPut: [OrderedCollection  with: unaCuenta]].
+	
+	
+	self assertCollection: unDiccionarioDeCuentas  keys hasSameElements: #('Pesos' 'Dolares').
+	
+	unDiccionarioDeCuentas := unaColeccionDeCuentas  groupedBy: [ :unaCuenta | unaCuenta obtenerMoneda ].
+	
+	self assertCollection: unDiccionarioDeCuentas  keys hasSameElements: #('Pesos' 'Dolares').
+	
+	unDiccionarioDeCuentas := unaColeccionDeCuentas  groupedBy: #obtenerMoneda.
+	
+	self assertCollection: unDiccionarioDeCuentas  keys hasSameElements: #('Pesos' 'Dolares').
+	
+	"Implementar el mismo comportamiento con inject"
+	
+]

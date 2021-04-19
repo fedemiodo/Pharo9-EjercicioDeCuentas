@@ -71,8 +71,8 @@ CajaDeAhorroTest >> test05_DescontarSaldoACajaDeAhorro [
 	self assert: cajaDeAhorro obtenerSaldo equals: 0.
 	self
 		should: [ cajaDeAhorro descontarSaldo: 10 ]
-		raise: Exception
-		withExceptionDo: [ :error |  ].
+		raise: AssertionFailed 
+		withMessageText: 'No hay saldo suficiente'.
 	self assert: cajaDeAhorro obtenerSaldo equals: 0
 ]
 
@@ -108,8 +108,8 @@ CajaDeAhorroTest >> test07_CrearClienteNuloDebeDevolverUnaExcepcion [
 				                paraElCliente: ''
 				                conElNumeroDeCuenta: 1
 				                conMoneda: 'Pesos' ]
-		raise: Exception
-		withExceptionDo: [ :error |  ]
+		raise: InstanceCreationFailed 
+		withMessageText: 'El cliente no puede tener el nombre vacio.'
 ]
 
 { #category : #tests }

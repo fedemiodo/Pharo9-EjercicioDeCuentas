@@ -6,10 +6,10 @@ Class {
 
 { #category : #'as yet unclassified' }
 CajaDeAhorro >> descontarSaldo: unaCantidad [	 
+		
+	AssertionChecker enforce: [self obtenerSaldo > unaCantidad]  because: [ 'No hay saldo suficiente' ].
 	
-	self obtenerSaldo < unaCantidad 
-		ifTrue: [ Exception signal: 'No hay saldo suficiente' ]
-		ifFalse: [ saldo:= saldo - unaCantidad  ]
+	saldo:= saldo - unaCantidad .
 ]
 
 { #category : #'as yet unclassified' }
